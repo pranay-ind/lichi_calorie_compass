@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Your place to get started with semantic web development"
+    />
+    <title>Calorie Compass</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <ul>
+          <li><a href="index.html">BMI Buddy</a></li>
+          <li><a href="calorieCompass.html">Calorie Compass</a></li>
+          <li><a href="waterWatcher.html">Water Watcher</a></li>
+          <li><a href="stepSankhya.html">Step Sankya</a></li>
+        </ul>
+      </nav>
+      <hgroup>
+        <h1>Water Watcher</h1>
+        <p>calculate Your Water intake</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <section>
+        <p>
+          Calculate your water intake suggestion based on weight and intake
+          suggestion
+        </p>
+        <div>
+          <input
+            type="number"
+            placeholder="Enter your weight in kg"
+            id="weight"
+          />
+          <select id="season">
+            <option value="Summer">Summer</option>
+            <option value="Winter">Winter</option>
+            <option value="Monsoon">Monsoon</option>
+          </select>
+
+          <button id="calculateBtn" type="button">Suggest Water Intake</button>
+        </div>
+      </section>
+      <section>
+        <p id="intakeResult"></p>
+      </section>
+    </main>
+    <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer>
+    <script>
+      // making one function for weight and season condition
+
+      function intakeWaterSuggestion(weight, season) {
+        let baseWaterIntake;
+        if (weight < 50 && season === "Summer") {
+          baseWaterIntake = 1.5 + 0.5 + "L";
+        } else if (weight <= 70 && season === "Winter") {
+          baseWaterIntake = 2.0 - 0.3 + "L";
+        } else {
+          baseWaterIntake = 2.5 + "L";
+        }
+        return baseWaterIntake;
+      }
+
+      // grab the input
+      function handleWaterIntake() {
+        const weightInputElement = document.getElementById("weight");
+        const seasonInputElement = document.getElementById("season");
+        const intakeResult = document.getElementById("intakeResult");
+
+        const weight = parseFloat(weightInputElement.value);
+        const season = seasonInputElement.value;
+
+        if (weight <= 0) {
+          intakeResult.innerText = "Enter a valid weight";
+        }
+
+        const waterIntakeRequirement = intakeWaterSuggestion(weight, season);
+        intakeResult.innerText =
+          "Drink at least " + waterIntakeRequirement + " of water daily";
+      }
+
+      const calculateBtn = document.getElementById("calculateBtn");
+      calculateBtn.addEventListener("click", handleWaterIntake);
+    </script>
+  </body>
+</html>
